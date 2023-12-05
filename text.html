@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" /> -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap"> -->
+    <link href="https://db.onlinewebfonts.com/c/86f978ab698c7989f726963f6c7e4e0d?family=SabonLTStd-Roman" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        * { margin:0; padding: 0; }
+        body { font-family: "SabonLTStd-Roman"; background-color: beige;}
+        .area { max-width: 768px; margin:120px auto;}
+        button { padding: 8px 12px; margin: 25px; border-radius: 4px; border:1px solid #ccc; }
+        button:active {
+            -webkit-box-shadow: inset 1px 1px 10px #aaa;
+            -moz-box-shadow:    inset 1px 1px 10px #aaa;
+            box-shadow:         inset 1px 1px 10px #aaa;
+        }
+        button.hide { visibility: hidden; pointer-events: none; }
+        a { color: blueviolet; padding:0 30px;  }
+        p.writing { font-size: 48px; }
+        .writing span {
+            opacity: 0;
+            transition-property: opacity;
+            transition-duration: 1.4s;
+            transition-timing-function: cubic-bezier(.77,0,.175,1)
+        }
+
+        .writing.show span {opacity: 1}
+        .writing span.delay-0 {transition-delay: 0s}
+        .writing span.delay-1 {transition-delay: .1s}
+        .writing span.delay-2 {transition-delay: .2s}
+        .writing span.delay-3 {transition-delay: .3s}
+        .writing span.delay-4 {transition-delay: .4s}
+        .writing span.delay-5 {transition-delay: .5s}
+        .writing span.delay-6 {transition-delay: .6s}
+        .writing span.delay-7 {transition-delay: .7s}
+        .writing span.delay-8 {transition-delay: .8s}
+        .writing span.delay-9 {transition-delay: .9s}
+    </style>
+</head>
+<body>
+<button type="button" id="ctrlBtn">Show Text</button>
+<p><a href="https://duotone.io/" target="_blank">인터렉션 참고: 듀오톤(duoton) 에이전시 홈페이지</a></p>
+<div class="area">
+    <p class="writing">We define the real problem by building empathy towards the users and creating a solid framework. Our design process is transparent. We dare to raise questions, share thoughts, and learn from giving and receiving feedback.
+    As a result, we deliver a systematic, balanced and scalable design system</p>
+</div>
+
+
+
+<script>
+// Helper 
+function random(min = 1, max = 9) {
+	return Math.floor( Math.random() * (max - min) + min );
+}
+
+const $target = document.querySelector('.writing');
+
+const words = Array.from($target.textContent);
+$target.innerHTML = words.map( word => {
+    if (word.match(/\s/)) {
+        return word;
+    } else {
+        return `<span class="delay-${random()}">${word}</span>`;    
+    }
+}).join('');
+
+// Binding Event 
+const $btn = document.getElementById('ctrlBtn');
+$btn.addEventListener('click', ()=> {
+    $btn.classList.add('hide');
+    $target.classList.add('show');
+});
+</script>
+</body>
+</html>
