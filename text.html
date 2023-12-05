@@ -8,7 +8,7 @@
     <title>Document</title>
     <style>
         * { margin:0; padding: 0; }
-        body { font-family: "SabonLTStd-Roman"; background-color: beige;}
+        body { font-family: "SabonLTStd-Roman"; background-color: #ecebdf;}
         .area { max-width: 768px; margin:120px auto;}
         button { padding: 8px 12px; margin: 25px; border-radius: 4px; border:1px solid #ccc; }
         button:active {
@@ -47,8 +47,6 @@
     As a result, we deliver a systematic, balanced and scalable design system</p>
 </div>
 
-
-
 <script>
 // Helper 
 function random(min = 1, max = 9) {
@@ -56,14 +54,15 @@ function random(min = 1, max = 9) {
 }
 
 const $target = document.querySelector('.writing');
-
 const words = Array.from($target.textContent);
+
 $target.innerHTML = words.map( word => {
-    if (word.match(/\s/)) {
-        return word;
-    } else {
-        return `<span class="delay-${random()}">${word}</span>`;    
-    }
+    return (word.match(/\s/)) ? word : `<span class="delay-${random()}">${word}</span>`;
+    // if (word.match(/\s/)) {
+    //     return word;
+    // } else {
+    //     return `<span class="delay-${random()}">${word}</span>`;
+    // }
 }).join('');
 
 // Binding Event 
