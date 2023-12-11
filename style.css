@@ -100,7 +100,12 @@
   }
   
   [type='checkbox'] {
-    border-radius: 0px;
+    border-radius: 0.25rem;
+    border:1px solid #ddd;
+    cursor: pointer;
+  }
+  [type='checkbox'] + label { 
+    cursor: pointer;
   }
   
   [type='radio'] {
