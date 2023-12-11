@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>예제 문서</title>
+<link rel="stylesheet" href="./style.css">
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js" 
     integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg==" 
     crossorigin="anonymous" 
@@ -14,6 +16,7 @@
 #wrap { margin: 2rem; }
 #selectbox-field { margin-top: 1rem; }
 .js { color: red; }
+.js:after { display: block; content:''; height:10px; background-color: yellow; }
 </style>
 </head>
 <body>
@@ -22,7 +25,7 @@
     <ul id="ul">
         <li>HTML</li>
         <li id="css">CSS</li>
-        <li class="js">JavaScript</li>
+        <li class="js" style="background-color: pink;">JavaScript</li>
     </ul>
     <p><input type="text" id="text" value="값이당"></p>
 
@@ -65,21 +68,21 @@ const $p = document.querySelector('p');
 // document.getElementById('log').textContent = $ul.firstChild;
 
 console.group('-- Node --')
-console.log('parentNode : ', $ul.parentNode ); // <div id="wrap">…</div>
-console.log('childNodes : ', $ul.childNodes ); // NodeList(7) [text, li, text, li#css, text, li.js, text]
-console.log('firstChild : ', $ul.firstChild , $ul.firstChild.nodeValue ); // #text , '\n        '
-console.log('lastChild  : ', $ul.lastChild ); // #text , '\n    '
-console.log('childNodes[1] : ', $ul.childNodes[1].nodeName, $ul.childNodes[1].nodeType, $ul.childNodes[1].nodeValue); // childNodes[1] :  LI 1 null
-console.log('nextSibling & previousSibling : ', $ul.nextSibling, $ul.previousSibling ); // #text , #text
-console.log('css & p : ', $css.childNodes, $p.childNodes, $css.firstChild.nodeType, $p.firstChild.nodeType ); // NodeList [text], NodeList [input#text], 3, 1
-console.log('hasChildNodes() : ', $ul.hasChildNodes() ); // true
+    console.log('parentNode : ', $ul.parentNode ); // <div id="wrap">…</div>
+    console.log('childNodes : ', $ul.childNodes ); // NodeList(7) [text, li, text, li#css, text, li.js, text]
+    console.log('firstChild : ', $ul.firstChild , $ul.firstChild.nodeValue ); // #text , '\n        '
+    console.log('lastChild  : ', $ul.lastChild ); // #text , '\n    '
+    console.log('childNodes[1] : ', $ul.childNodes[1].nodeName, $ul.childNodes[1].nodeType, $ul.childNodes[1].nodeValue); // childNodes[1] :  LI 1 null
+    console.log('nextSibling & previousSibling : ', $ul.nextSibling, $ul.previousSibling ); // #text , #text
+    console.log('css & p : ', $css.childNodes, $p.childNodes, $css.firstChild.nodeType, $p.firstChild.nodeType ); // NodeList [text], NodeList [input#text], 3, 1
+    console.log('hasChildNodes() : ', $ul.hasChildNodes() ); // true
 console.groupEnd()
 
 console.group('-- Element --')
-console.log('parentElement :', $ul.parentElement)
-console.log('elementSibling: ', $css.previousElementSibling, $css.nextElementSibling)
-console.log('children: ', $ul.children);
-console.log('child: ', $css.firstElementChild, $ul.lastElementChild);
+    console.log('parentElement :', $ul.parentElement)
+    console.log('elementSibling: ', $css.previousElementSibling, $css.nextElementSibling)
+    console.log('children: ', $ul.children);
+    console.log('child: ', $css.firstElementChild, $ul.lastElementChild);
 console.groupEnd()
 </script> 
 </body>

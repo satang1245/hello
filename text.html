@@ -56,14 +56,7 @@ function random(min = 1, max = 9) {
 const $target = document.querySelector('.writing');
 const words = Array.from($target.textContent);
 
-$target.innerHTML = words.map( word => {
-    return (word.match(/\s/)) ? word : `<span class="delay-${random()}">${word}</span>`;
-    // if (word.match(/\s/)) {
-    //     return word;
-    // } else {
-    //     return `<span class="delay-${random()}">${word}</span>`;
-    // }
-}).join('');
+$target.innerHTML = words.map( word => (word.match(/\s/)) ? word : `<span class="delay-${random()}">${word}</span>` ).join('');
 
 // Binding Event 
 const $btn = document.getElementById('ctrlBtn');
