@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>문서</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        html, body { margin:0; padding:0; background: #ecebdf; box-sizing: border-box;}
+        #wrap { min-height: 100vh; }
+        .area  { margin: 150px 100px;}
+        h1 { font-size: 1rem; color: #222; }
+        ul, li { margin: 0; padding:0; list-style: none; }
+        .cards { display: grid;grid-template-rows: repeat(3, 1fr);grid-template-columns: repeat(3, 1fr);gap: 16px;}
+        .card { padding: 10px; background: #fff; border: 1px solid #ddd; }
+        .card .color-chip { height: 120px; margin-bottom: 8px; box-sizing: border-box; padding: 1rem; font-size: 18px; font-weight: 600; color: #522a28; }
+        .card .color-name { color: #333; font-size: .875rem;}
+        .card .badge {padding: 2px 8px; border-radius: 4px; color: #522a28; background: beige; font-size: .875rem;}
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div class="area">
+        <h1>PANTONE® APAC |  Color of the Year / 2024 / Color Harmonies</h1>
+        <ul class="cards"></ul>
+    </div>
+</div>
+
+
+<script>
+const $cards = document.querySelector('.cards');
+const colors = [
+    { "brandied-apricot" : "CA848A"},
+    { "peach-fuzz" : "FFBE98"},
+    { "marsala" : "964F4C"},
+    { "almondine" : "A78C7B"},
+    { "almond-peach" : "D8C8BD"},
+    { "grapeade" : "85677B"},
+    { "sauterne" : "C5A253" }
+]
+$cards.innerHTML = colors.map(color => {
+    const [colorName, colorValue] = [Object.keys(color)[0], Object.values(color)[0]];
+    return `<li class="card">
+                <div class="color-chip" style="background-color: #${colorValue}">${colorName.toUpperCase()}</div>
+                <p class="color-name">
+                    <span>hex: </span>
+                    <span class="badge">${colorValue}</span>
+                </p>
+            </li>`;
+}).join('');
+</script>
+</body>
+</html>

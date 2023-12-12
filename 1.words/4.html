@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    
+    p { max-width: 768px; font-size: 24px; margin:150px auto;}
+    p span {transition-duration:0.5s; position: relative; top:0; opacity: 0; display:inline-block;}
+    p span.on{position: relative;top:5px; opacity: 1;}
+</style>
+</head>
+<body>
+    <button class="moveBtn" onclick="btnFunc01()">동작버튼</button>
+    <p class="textWrap">
+        「금융실명거래 및 비밀보장에 관한 법률」 제3조 제3항에 따라 누구든지 불법재산의 은닉, 자금세탁행위, 공중협박자금조달행위 및 강제집행의 면탈 그 밖의 탈법행위를 목적으로 타인의 실명으로 금융거래를 하여서는 아니 되며, 이를 위반 시 5년 이하의 징역 또는 5천만원 이하의 벌금에 처해질 수 있습니다. 
+    </p>
+
+<script>
+    const str = document.querySelector('.textWrap');
+    const arr = str.textContent.split('');
+
+    reSetFunc();
+
+    function reSetFunc() {
+        str.innerHTML = "";
+        for(var i=0; i<arr.length; i++) {
+            str.innerHTML += "<span>"+ arr[i] + "</span>";
+        }
+    }
+
+    function btnFunc01() {
+        for(var i=0; i<arr.length; i++) {
+            const sample = document.querySelector('.textWrap').querySelectorAll('span')[i];
+            sample.classList.add('on');
+            sample.style.transitionDelay = (Math.random(0.1,0.5)) + 's';
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="NH Bank" />
+<meta http-equiv="imagetoolbar" content="no">
+<meta name="robots" content="no-index,follow">
+<meta name="title" content="">
+<meta name="author" content="">
+<meta name="content" content="">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<title>:::NH통합스마트뱅킹 || 대출:::</title>
+<style>
+    * { margin:0; padding: 0; }
+    body { font-family: "SabonLTStd-Roman"; background-color: #ecebdf;}
+    .area { max-width: 768px; margin:120px auto;}
+    button { padding: 8px 12px; margin: 25px; border-radius: 4px; border:1px solid #ccc; }
+    button:active {
+        -webkit-box-shadow: inset 1px 1px 10px #aaa;
+        -moz-box-shadow:    inset 1px 1px 10px #aaa;
+        box-shadow:         inset 1px 1px 10px #aaa;
+    }
+    button.hide { visibility: hidden; pointer-events: none; }
+    a { color: blueviolet; padding:0 30px;  }
+    p.writing { font-size: 36px; }
+    .writing span {
+        opacity: 0;
+        transition-property: opacity;
+        transition-duration: 1.4s;
+        transition-timing-function: cubic-bezier(.77,0,.175,1)
+    }
+
+    .writing.show span {opacity: 1}
+    .writing span.delay-0 {transition-delay: 0s}
+    .writing span.delay-1 {transition-delay: .1s}
+    .writing span.delay-2 {transition-delay: .2s}
+    .writing span.delay-3 {transition-delay: .3s}
+    .writing span.delay-4 {transition-delay: .4s}
+    .writing span.delay-5 {transition-delay: .5s}
+    .writing span.delay-6 {transition-delay: .6s}
+    .writing span.delay-7 {transition-delay: .7s}
+    .writing span.delay-8 {transition-delay: .8s}
+    .writing span.delay-9 {transition-delay: .9s}
+</style>
+
+</head>
+<body>
+	<!-- randomBox -->
+    <button class="btn">PRESS</button>
+	<div class="area">
+        <p class="writing">
+        배열도 객체이기 때문에, 객체처럼 동적으로 생성이 가능하며 할당시 해당 인덱스의 값이 순차적일 필요는 없다.
+        대신 인덱스의 값을 중간부터 넣을 경우 그 앞 배열값에는 빈 값이 등록되며, 인덱스의 값만큼 length를 부여한다.
+        또한 인덱스에 숫자가 아닌 문자열을 넣을 경우, 객체처럼 등록되지만 length에는 추가되지 않는다.C언어 또는 Java등 일반적인 프로그램언어에서는 정수, 실수를 구분하여 Int, long, float, double 등과 같은 숫자 타입이 존재한다.
+        하지만 자바스크립트는 독특하게 하나의 숫자타입(Number)만 존재한다. (Chrome 67버전 이후 `BigInt` 타입이 추가되었다.)
+        </p>
+    </div>
+    <!--// randomBox -->
+
+    <script>
+        const btn = document. querySelector ('.btn');
+        const text = document. querySelector ('.writing');
+        const textall = text.innerText;
+        //const textslice = Array.from(textall);
+        let innerText = '';
+        const randomNum = Math.random();
+
+        for (var i=0; i<textall.length; i++) {
+            var r = random();
+            innerText += '<span class="delay-'+ r +'">' + textall[i] +'</span>';
+        }
+        text.innerHTML = innerText;
+    
+        
+        function random(min = 1, max = 9) {
+                return Math.floor( Math.random() * (max - min) + min );
+            }
+
+        btn.addEventListener("click", () => {
+            text.className += ' show';
+        }
+        )
+    </script>
+</body>
+</html>

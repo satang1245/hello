@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .to_btn,.to_hide{width:200px;height:150px;display: flow; margin: 0 0 0 auto ;}
+        .content{background: #ccc;width:100vw;height:100vh;}
+        .text{margin:100px auto auto;font-size: 48px; width:80%;height:60%;}
+    
+        .text span {
+            opacity: 0;
+            transition-property: opacity;
+            transition-duration: 1.4s;
+            transition-timing-function: cubic-bezier(.77,0,.175,1)
+        }        
+        .text.show span {opacity: 1}
+        .text span.delay-0 {transition-delay: 0s}
+        .text span.delay-1 {transition-delay: .1s}
+        .text span.delay-2 {transition-delay: .2s}
+        .text span.delay-3 {transition-delay: .3s}
+        .text span.delay-4 {transition-delay: .4s}
+        .text span.delay-5 {transition-delay: .5s}
+        .text span.delay-6 {transition-delay: .6s}
+        .text span.delay-7 {transition-delay: .7s}
+        .text span.delay-8 {transition-delay: .8s}
+        .text span.delay-9 {transition-delay: .9s}
+    </style>
+    <div class="content">
+        <button class="to_btn">Click on change</button>
+        <div class="text">
+            <span>
+                We define the real problem by building empathy towards the users and creating a solid framework. Our design process is transparent. We dare to raise questions, share thoughts, and learn from giving and receiving feedback. As a result, we deliver a systematic, balanced and scalable design system
+            </span>
+        </div>
+        Welcome
+        <script> 
+            
+            let txt_s = document.querySelector('.text');
+            console.log(txt_s.innerText.length);
+            var textContent = txt_s.innerText;
+
+            txt_s.innerHTML = ''; // 기존 내용을 지우고
+
+            for (var i = 0; i < textContent.length; i++) {
+
+                let tag_p = document.createElement('span');
+                const randomNum = Math.floor(Math.random() * 9 + 1);
+
+                tag_p.textContent = textContent[i];
+
+                tag_p.classList.add("delay-" + randomNum);
+
+                txt_s.appendChild(tag_p);
+            }            
+            document.querySelector('.to_btn').addEventListener('click', function () {                
+                txt_s.classList.toggle("show");
+            });
+            
+                        
+        </script>
+    </div>
+</body>
+</html>
