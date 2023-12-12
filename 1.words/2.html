@@ -26,6 +26,7 @@
         }
 
         .writing.show span {opacity: 1}
+        .writing:not(.show) span { transition-delay: .1s !important;}
         .writing span.delay-0 {transition-delay: 0s}
         .writing span.delay-1 {transition-delay: .1s}
         .writing span.delay-2 {transition-delay: .2s}
@@ -71,6 +72,7 @@
 
     ctrlBtn.addEventListener('click', function(){
       writing.classList.toggle('show');//7.toggle사용.
+      this.textContent = writing.classList.contains('show') ? 'Hide Text' : 'Show Text';
     })
   });
 </script>
