@@ -18,10 +18,10 @@
 .area { padding:0 var(--side-pad); margin:0 auto;  }
 .logo { display: block; line-height: 1.5;}
 
-.hero { height: 560px; transition: background-color 5s linear; background-color: var(--bg-color, #CC65FD); }
+.hero { height: 560px; transition: background-color 5s linear; background-color: #CC65FD; }
 .hero-letters { text-align: center; font-size: 68px; padding: 150px 0; line-height: 1.3;}
 .hero-letters .letter { position: relative; }
-.hero-letters .letter:after {position: relative;content: '';top:-2px;display: inline-block; vertical-align: middle; height: 1.2em;margin-left: 10px;border-right: 3px solid #000;animation: cursor 1s step-end infinite; }
+.hero-letters .letter:after {position: relative;content: '';top:-5px;display: inline-block; vertical-align: middle; height: 1.2em;margin-left: 4px;border-right: 3px solid #000;animation: cursor 1s step-end infinite; }
 @keyframes cursor {
    50% { opacity: 0; }
 }
@@ -75,9 +75,44 @@
 </div>
 
 <script>
-const heroBgColors = ['#CC65FD', '#20CF70', '#CC65FD', '#E8FD65'];
-const heroLetters = ['Lots of', 'Awesome', 'High Quality', 'Professional'];
+// Main typograph rolling motion
++function() {
+    const $hero = document.querySelector('.hero');
+    const $letter = $hero.querySelector('.letter');
+    
+    const heroBgColors = ['#CC65FD', '#20CF70', '#CC65FD', '#E8FD65'];
+    const heroLetters = ['Lots of', 'Awesome', 'High Quality', 'Professional'];
 
+    let heroIndex = 0;
+    let typingTime = 100;
+    let heroTimer = 1500;
+    let letterArr = heroLetters[heroIndex];
+    
+    function nextHero() {
+        heroIndex += 1;
+        if ( heroIndex >= heroLetters.length ) {
+            heroIndex = 0;
+        };
+
+        letterArr = heroLetters[heroIndex];
+        $hero.style.backgroundColor = heroBgColors[heroIndex];
+        setTimeout(() => { typingWords(1) }, heroTimer);
+    }
+
+    function typingWords(type = -1) {
+        let i = 0, l = letterArr.length;
+        ;(function typing() { 
+            ( i >= l ) 
+                ? ( (type === -1) ? nextHero() : setTimeout(() => {typingWords() }, heroTimer) )
+                : ( 
+                    $letter.textContent = letterArr.slice(0, (++i*type)), 
+                    setTimeout(typing, typingTime)
+                );
+        })();
+    };
+    
+    typingWords();
+}();
 </script>
 </body>
 </html>
