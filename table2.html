@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+    table { table-layout: fixed; border-collapse: collapse; }
+    th, td { padding: 9px 12px; text-align: center; border-color: #ddd; font-size: 14px; }
+    input { padding: 4px; line-height: 20px; height: 28px; border:1px solid #333; width: 90%;font-size: 12px; border-radius: 3px; background-color: #fafafa; box-sizing: border-box;}
+    button { margin-bottom: 10px; padding: 7px 12px;}
+    tr.createFormRow.hide {display: none;}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+<button class="btn">추가</button>
+<table border="1px soild black">
+    <colgroup>
+        <col width="60">
+        <col width="160">
+        <col width="160">
+        <col width="160">
+        <col>
+        <col>
+    </colgroup>
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th class="title">제목</th>
+            <th>내용</th>
+            <th>작성자</th>
+            <th>수정</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr class="createFormRow hide">
+            <th>-</th>
+            <th><input type="text"></th>
+            <th><input type="text"></th>
+            <th><input type="text"></th>
+            <td><button onclick="addContentRow()">추가</button></td>
+            <td><button onclick="document.querySelector('.btn').click();">취소</button></td>
+        </tr>
+    </tfoot>
+
+    <tbody class="addContent">
+        <tr>
+            <td class="num">1</td>
+            <td>제목1</td>
+            <td>내용1</td>
+            <td>작성자1</td>
+            <td><button class="modify">수정</button></td>
+            <td><button class="removeBtn">삭제</button></td>
+        </tr>
+        <tr>
+            <td class="num">2</td>
+            <td>제목2</td>
+            <td>내용2</td>
+            <td>작성자2</td>
+            <td><button class="modify">수정</button></td>
+            <td><button class="removeBtn">삭제</button></td>
+        </tr>
+        <tr>
+            <td class="num">3</td>
+            <td>제목3</td>
+            <td>내용3</td>
+            <td>작성자3</td>
+            <td><button class="modify">수정</button></td>
+            <td><button class="removeBtn">삭제</button></td>
+        </tr>
+    </tbody>
+</table>
+<script>
+const $table = document.querySelector('table');
+const $addBtn = document.querySelector('.btn');
+const $tbody = document.querySelector('.addContent');
+const $createFormRow = document.querySelector('.createFormRow');
+
+function updateyRow($row) {
+    // 현재 html상황을 저장해놓음.
+    $row.prevData = $row.innerHTML;
+
+    // map 메소드는 새로운 배열로 리턴.
+    const $tds = $row.children;
+    Array.from($tds).forEach(($td, idx) => {
+        if ( idx && idx < 4 ) { // index 1~3;
+            $td.innerHTML = `<input type="text" value="${$td.innerText}" />`;
+        } else if ( idx === 4 ) { // index 4
+            $td.innerHTML = `<button class="save">저장</button>`;
+        } else if ( idx === 5 ) { // index 5
+            $td.innerHTML = `<button class="cancel">취소</button>`;
+        }
+    });
+}
+function removeRow($row) {
+    $row.remove();
+    resetIndex();
+}
+function saveRow($row) {
+    const $tds = $row.children;
+    Array.from($tds).forEach(($td, idx) => {
+        if ( idx && idx < 4 ) { // index 1~3;
+            $td.textContent = $td.firstElementChild.value;
+        } else if ( idx === 4 ) { // index 4
+            $td.innerHTML = `<button class="modify">수정</button>`;
+        } else if ( idx === 5 ) { // index 5
+            $td.innerHTML = `<button class="removeBtn">삭제</button>`;
+        }
+    });        
+}
+function cancelRow($row) {
+    $row.innerHTML = $row.prevData;
+}
+
+function resetIndex() {
+    Array.from($tbody.children).forEach(function($tr, idx) {
+        $tr.firstElementChild.innerHTML = (idx+1);
+    });
+}
+
+
+function insertformHide() {
+    $createFormRow.classList.add('hide');
+    $addBtn.textContent = '추가';
+    resetCreateRowData();
+}
+function insertformShow() {
+    $createFormRow.classList.remove('hide');
+    $addBtn.textContent = '취소';
+}
+
+// 추가 버튼 클릭시
+function addContentRow() {
+    const $ths = $createFormRow.children;
+    const $newRow = document.createElement('tr');
+    // const validate = Array.from($ths.querySelectorAll('input')).filter($input => !$input.value.replace(/\s/g,'').length).length; // input에 공백만 있거나 값이 없을 경우 체크하여 그 갯수를 반환.
+    const valiCheckInput = Array.from($createFormRow.querySelectorAll('input')).find($input => !$input.value.replace(/\s/g,'').length) // input에 공백만 있거나 값이 없을 경우 체크하여 그 첫번째 인풋을 반환.
+    if ( valiCheckInput ) {
+        console.log( valiCheckInput );
+        valiCheckInput.focus();
+    } else {
+        $newRow.innerHTML = `<td class="num"></td>
+                <td>${$ths[1].firstElementChild.value}</td>
+                <td>${$ths[2].firstElementChild.value}</td>
+                <td>${$ths[3].firstElementChild.value}</td>
+                <td><button class="modify">수정</button></td>
+                <td><button class="removeBtn">삭제</button></td>`;
+        $tbody.appendChild($newRow);
+
+        resetIndex();
+        insertformHide();
+    }
+}
+
+// reset
+function resetCreateRowData() {
+    $createFormRow.querySelectorAll('input').forEach(item => item.value = '');
+}
+
+// Event binding
+$tbody.addEventListener('click', function(e) {
+    const $target = e.target;
+    if ( e.target.tagName.toLowerCase() === 'button') {
+        const $row = $target.closest('tr');
+        switch ( $target.className ) {
+            case "modify"       : updateyRow($row); break;
+            case "removeBtn"    : removeRow($row); break;
+            case "save"         : saveRow($row); break;
+            case "cancel"       : cancelRow($row); break;
+        }
+    }
+});
+
+
+$addBtn.addEventListener('click', function(e) {
+    if ( $createFormRow.classList.contains('hide') ) {
+        insertformShow();
+    } else {
+        insertformHide();
+    }
+});
+</script>
+</body>
+</html>

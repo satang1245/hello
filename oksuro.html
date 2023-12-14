@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>문서</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- style -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet">
+<style>
+:root {
+    --side-pad: 80px;
+}
+*, ::before, ::after {margin:0; padding:0; box-sizing: border-box; font-family: 'Bevan', serif;}
+#header { position: fixed; top:0; left: 0; right: 0; padding:0 var(--side-pad) }
+#footer { margin-top: 40px;} 
+.area { padding:0 var(--side-pad); margin:0 auto;  }
+.logo { display: block; line-height: 1.5;}
+
+.hero { height: 560px; transition: background-color 5s linear; background-color: var(--bg-color, #CC65FD); }
+.hero-letters { text-align: center; font-size: 68px; padding: 150px 0; line-height: 1.3;}
+.hero-letters .letter { position: relative; }
+.hero-letters .letter:after {position: relative;content: '';top:-2px;display: inline-block; vertical-align: middle; height: 1.2em;margin-left: 10px;border-right: 3px solid #000;animation: cursor 1s step-end infinite; }
+@keyframes cursor {
+   50% { opacity: 0; }
+}
+
+#container .area { margin: 150px auto; }
+.image-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; list-style: none;}
+.image-item figure { height: 100%; }
+.image-item img { display: block; object-fit: cover; width: 100%; height: 100%; }
+.image-item-span2 {grid-column: span 2; }
+</style>
+
+<!-- script -->
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+</head>
+<body>
+<div id="wrap">
+    <header id="header">
+        <div class="area">
+            <h1 class="logo">webgram</h1>
+        </div>
+    </header>
+    <main id="container">
+        <div class="hero">
+            <p class="hero-letters"><span class="letter">Lots of</span> Generative AI images <br>crafted with love by Human</p>
+        </div>
+        <div class="area">
+            <ul class="image-list">
+                <li class="image-item">
+                    <figure><img src="https://imagedelivery.net/djfufN1Ft6CV8Emdrip5jA/938788fc-7eb1-40cb-5b76-d47551764300/w=1920" alt=""></figure>
+                </li>
+                <li class="image-item">
+                    <figure><img src="https://imagedelivery.net/djfufN1Ft6CV8Emdrip5jA/cf8bcfe0-fd0f-4191-ee30-62ea0cb05300/w=1920" alt=""></figure>
+                </li>
+                <li class="image-item">
+                    <figure><img src="https://imagedelivery.net/djfufN1Ft6CV8Emdrip5jA/32506fa8-6e70-421b-2dd8-c63c82946200/w=1920" alt=""></figure>
+                </li>
+                <li class="image-item image-item-span2">
+                    <figure><img src="https://imagedelivery.net/djfufN1Ft6CV8Emdrip5jA/427bf51f-0233-4616-07d7-c56e539ef700/w=1920" alt=""></figure>
+                </li>
+                <li class="image-item">
+                    <figure><img src="https://imagedelivery.net/djfufN1Ft6CV8Emdrip5jA/e9d913a8-bbbe-4ced-f90b-067d899bb800/w=1920" alt=""></figure>
+                </li>
+            </ul>
+        </div>
+    </main>
+    <footer id="footer">
+        <div class="area">
+            <p class="copyright">2023 &copy; septem-ai Corp. All right reserved.</p>
+        </div>
+    </footer>
+</div>
+
+<script>
+const heroBgColors = ['#CC65FD', '#20CF70', '#CC65FD', '#E8FD65'];
+const heroLetters = ['Lots of', 'Awesome', 'High Quality', 'Professional'];
+
+</script>
+</body>
+</html>
