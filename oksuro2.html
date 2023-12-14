@@ -94,11 +94,10 @@
         $hero.style.backgroundColor = heroBgColors[index];
 
         // typing word
-        let words = heroLetters[index];
-        let i = 0;
+        let words = Array.from(heroLetters[index]);
         (function typingWord() {
-            if (i < words.length) {
-                $letter.textContent = words.slice(0, ++i);
+            if (words.length) {
+                $letter.textContent += words.shift();
                 setTimeout( typingWord, speed );
             }
         })();
@@ -109,12 +108,13 @@
 
     // delete word
     function handleRemove() {
-        let words = heroLetters[index];
-        let i = 0;
-        (function typingWord() {
-            if ( Math.abs(i) < words.length ) {
-                $letter.textContent = words.slice(0, --i);
-                setTimeout( typingWord, speed );
+        // -- here code -- //
+        let words = Array.from(heroLetters[index]);
+        (function removeWord() {
+            if (words.length) {
+                words.pop();
+                $letter.textContent = words.join('');
+                setTimeout( removeWord, speed );
             }
         })();
 

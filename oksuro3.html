@@ -86,37 +86,37 @@
     let speed = 100;
     let delay = 1500;
 
+    // Helper
+    function wait(ms) {
+        return new Promise( resolve => setTimeout( resolve, ms ) );
+    }
+
     // typing word
-    function handleTyping() {
+    async function handleTyping() {
         index = heroLetters[index+1] ? index+1 : 0;
 
         // change background color
         $hero.style.backgroundColor = heroBgColors[index];
 
         // typing word
-        let words = heroLetters[index];
-        let i = 0;
-        (function typingWord() {
-            if (i < words.length) {
-                $letter.textContent = words.slice(0, ++i);
-                setTimeout( typingWord, speed );
-            }
-        })();
+        let words = Array.from(heroLetters[index]);
+        while ( words.length ) {
+            await wait(speed);
+            $letter.textContent += words.shift();
+        }
         
         // finish typing word
         setTimeout(handleRemove, delay);
     }
 
     // delete word
-    function handleRemove() {
-        let words = heroLetters[index];
-        let i = 0;
-        (function typingWord() {
-            if ( Math.abs(i) < words.length ) {
-                $letter.textContent = words.slice(0, --i);
-                setTimeout( typingWord, speed );
-            }
-        })();
+    async function handleRemove() {
+        let words = Array.from(heroLetters[index]);
+        while ( words.length ) {
+            await wait(speed);
+            words.pop();
+            $letter.textContent = words.join('');
+        }
 
         // finish remove word
         setTimeout(handleTyping, delay);
