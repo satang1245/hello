@@ -138,7 +138,6 @@ const $easing = {
     $btnReverse.addEventListener('click', handleClickReverse);
     const ro = new ResizeObserver((entries, observe) => {
       entries.forEach(entry => {
-        console.log( $area.clientWidth - $box.clientWidth, getTranslate($box) );
         const maxSize = $area.clientWidth - $box.clientWidth;
         if (getTranslate($box) > maxSize) {
           $box.style.transform = `translateX(${maxSize}px)`;

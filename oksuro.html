@@ -97,13 +97,13 @@
         // typing word
         let words = heroLetters[index];
         let i = 0;
-        (function typingWord() {
+        setTimeout(function typingWord() {
             console.log('@@add : typingWord@@');
             if (i < words.length) {
                 $letter.textContent = words.slice(0, ++i);
                 setTimeout( typingWord, speed );
             }
-        })();
+        }, speed);
         
         // finish typing word
         setTimeout(handleRemove, delay);
@@ -114,19 +114,19 @@
         console.log('-- handleRemove --');
         let words = heroLetters[index];
         let i = 0;
-        (function typingWord() {
+        setTimeout(function typingWord() {
             console.log('@@remove : typingWord@@');
             if ( Math.abs(i) < words.length ) {
                 $letter.textContent = words.slice(0, --i);
                 setTimeout( typingWord, speed );
             }
-        })();
+        }, speed);
 
         // finish remove word
         setTimeout(handleTyping, delay);
     }
 
-    // setTimeout( handleRemove, delay );
+    setTimeout( handleRemove, delay );
 }();
 </script>
 </body>
