@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>문서</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>promise</h1>
+<p></p>
+<script>
+async function hello() {
+    console.log('1.', 'begin Hello Function!')
+    const promise = new Promise((resolve, reject) => {
+        setTimeout( ()=> { resolve('hello world!!'); }, 1500);
+    });
+    
+    const res = await promise;
+    console.log('2', res);
+    console.log('3', 'after await');
+    // return promise;
+}
+
+hello();
+console.log('After func called');
+
+
+// ------------------------------------------------------------
+// function wait(ms) {
+//     return new Promise( res => setTimeout( res, ms ) );
+// }
+
+// function hello() {
+//     return 'hello world!!';
+// }
+
+// // 일반적인 promise.then 문법.
+// console.log('---- // 방법 1 ');
+// wait(1500).then( function(){
+//     console.log('방법1: ', hello() )
+// } );
+// console.log(' 방법 1 // ----');
+
+// // async, await 문법으로 변경시.
+// (async () => {
+//     console.log('---- // 방법 2 ');
+//     await wait(1500);
+//     console.log('방법2: ', hello() );
+//     document.querySelector('h1').textContent = hello();
+//     console.log(' 방법 2 // ----');
+// })();
+
+</script>
+</body>
+</html>

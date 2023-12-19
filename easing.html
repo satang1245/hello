@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>문서</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root {
+  --btn-color: 46 139 87;
+}
+*, ::before, ::after {box-sizing: border-box; margin:0; padding:0; }
+#wrap { margin: 100px; }
+#area { position: relative;margin: 50px 0; padding:100px 0 0; background: beige;text-align: right; border:4px solid rgb(246, 90, 90)}
+.box {position: absolute;top:0;left:0; width:100px; height:100px; background: #ffdecb;}
+.btn-area { position: absolute; top: 100%; right: 40px; white-space: nowrap;}
+.btn { margin-top: 30px; padding: 8px 16px; 
+    border:1px solid rgb(var(--btn-color)); 
+    background: rgb(var(--btn-color) / 15%); 
+    border-radius: 4px; mix-blend-mode: difference;
+    color: rgb(var(--btn-color)); cursor: pointer;
+}
+.btn:active { box-shadow: inset 0 0 1em rgb(var(--btn-color) / 75%); font-weight: bold; }
+.btn.stop { 
+  --btn-color: 242 74 22;
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <header class="header">
+    <h1>animate를 js로 구현해보고, easing 적용해보기.</h1>
+    <p>easing 참고: <a href="https://easings.net/ko" target="_blank">https://easings.net/ko</a></p>
+  </header>
+  <div id="area">
+      <div class="box"></div>
+      <div class="btn-area">
+        <button class="btn play" value="linear">이동 - linear</button>
+        <button class="btn play" value="swing">이동 - swing</button>
+        <button class="btn play" value="easeInOutQuint">이동 - easeInOutQuint</button>
+        <button class="btn reverse">원위치로</button>
+        <button class="btn stop">정지하라!</button>
+      </div>
+  </div>
+</div>
+<script>
+const $easing = {
+  linear: v => v,
+  swing: v => .5 - Math.cos(v * Math.PI) / 2,
+  easeInOutQuint: v => v < 0.5 ? 16 * v * v * v * v * v : 1 - Math.pow(-2 * v + 2, 5) / 2
+};
+
++function() {
+    const $area = document.getElementById('area'),
+      $box = document.querySelector('.box'),
+      $btnPlays = document.querySelectorAll('.play'),
+      $btnStop = document.querySelector('.stop'),
+      $btnReverse = document.querySelector('.reverse');
+
+    let start = +new Date;
+    let interval = null;
+    let duration = 1500;
+    let easing = 'easeInOutQuint';
+    let maxMove = $area.scrollWidth - document.querySelector('.box').clientWidth;
+    let log = function (value) {
+      console.log(value);
+    };
+
+    /*!
+     * getTranslate - css transform 속성의  X, Y, Z 값을 돌려준다.
+     * element{HTMLElement} - 선택 요소
+     * type{String} - Default값은 x, 찾고자 하는 trnasform의 x, y, z의 값을 넣어준다.
+     */
+    function getTranslate(element, type = 'x') {
+      const translate = { x: 'm41', y: 'm42', z: 'm43' };
+      return new WebKitCSSMatrix(getComputedStyle(element).transform)[ translate[type] ];
+    }
+
+    
+    
+    function anim(duration, easing, action, callback) {
+      const value = Math.min((+new Date - start) / duration, 1);
+
+      // return 0 to 1;
+      const progress = easing(value);
+      action(progress);
+
+      if (value < 1) {
+        interval = requestAnimationFrame(()=> {
+          anim(duration, easing, action, callback);
+        });
+      } else {
+        typeof callback === 'function' && callback();
+      }
+    }
+
+    function handleClickPlay() {
+      handleClickStop();
+
+      start = +new Date;
+      let startX = getTranslate($box);
+      let move = maxMove - startX;
+      if ( move === 0 ) return;
+      // console.log(getTranslate($box), maxMove - getTranslate($box))
+
+      interval = requestAnimationFrame(()=> {
+        anim(duration, $easing[easing = this.value], (progress)=> {
+          const v = startX + progress * move;
+          $box.style.transform = `translateX(${v}px)`;
+        }, function() {
+          console.log('@@ finish Time : ', +new Date - start);
+        });
+      });
+    }
+    
+    function handleClickReverse() {
+      handleClickStop();
+
+      start = +new Date;
+      let startX = getTranslate($box);
+      let move = -startX;
+      if ( move === startX ) return;
+      // console.log(getTranslate($box), maxMove - getTranslate($box))
+      interval = requestAnimationFrame(()=> {
+        anim(duration, $easing[easing], (progress)=> {
+          const v = startX + progress * move;
+          $box.style.transform = `translateX(${v}px)`;
+        }, function() {
+          console.log('@@ finish Time : ', +new Date - start);
+        });
+      });
+    }
+    
+    function handleClickStop() {
+      interval && cancelAnimationFrame(interval);
+    }
+
+
+    Array.from($btnPlays).forEach( $btnPlay => $btnPlay.addEventListener('click', handleClickPlay) );
+    $btnStop.addEventListener('click', handleClickStop);
+    $btnReverse.addEventListener('click', handleClickReverse);
+}();
+
+</script>
+</body>
+</html>

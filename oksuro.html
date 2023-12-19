@@ -84,10 +84,11 @@
 
     let index = 0;
     let speed = 100;
-    let delay = 1500;
+    let delay = 3000;
 
     // typing word
     function handleTyping() {
+        console.log('-- handleTyping --');
         index = heroLetters[index+1] ? index+1 : 0;
 
         // change background color
@@ -97,6 +98,7 @@
         let words = heroLetters[index];
         let i = 0;
         (function typingWord() {
+            console.log('@@add : typingWord@@');
             if (i < words.length) {
                 $letter.textContent = words.slice(0, ++i);
                 setTimeout( typingWord, speed );
@@ -109,9 +111,11 @@
 
     // delete word
     function handleRemove() {
+        console.log('-- handleRemove --');
         let words = heroLetters[index];
         let i = 0;
         (function typingWord() {
+            console.log('@@remove : typingWord@@');
             if ( Math.abs(i) < words.length ) {
                 $letter.textContent = words.slice(0, --i);
                 setTimeout( typingWord, speed );
@@ -122,7 +126,7 @@
         setTimeout(handleTyping, delay);
     }
 
-    setTimeout( handleRemove, delay );
+    // setTimeout( handleRemove, delay );
 }();
 </script>
 </body>

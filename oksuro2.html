@@ -109,7 +109,7 @@
     // delete word
     function handleRemove() {
         // -- here code -- //
-        let words = Array.from(heroLetters[index]);
+        let words = Array.from($letter.textContent);
         (function removeWord() {
             if (words.length) {
                 words.pop();
