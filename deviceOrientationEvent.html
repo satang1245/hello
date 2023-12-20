@@ -5,11 +5,15 @@
 <title>문서</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>gyro.js - easy access to your web browsers built in accelerometer's and gyroscope's</title>
+<style>
+    .bull { position: fixed; top:50%; left: 50%; width: 50px; height: 50px; border-radius: 50%; background-color: pink; transform: translate(-50%, -50%); }
+</style>
 </head>
 <body>
 <p>This Example just print's the raw accelerometer and gyro data. Will return null if no device information is found.</p>
 <div id="example"></div>
 <button type="button" onclick="requestPermissionSafari();">권한 얻기</button>
+<div class="bull"></div>
 <script>
 function getCompassHeading(alpha, beta, gamma) {
   const degtorad = Math.PI / 100;
@@ -41,18 +45,20 @@ function getCompassHeading(alpha, beta, gamma) {
 
 // DeviceOrientation 이벤트
 
+// 위(event.beta): -90 ~ 90;
+// 양옆(event.gamma): -90 ~ 90;
 
 // // 자이로 센서 값 변화
-function handleOrientation(event) {
-  // X축
-  const beta = event.beta;
-  // Y축
-  const gamma = event.gamma;
-  // Z축
-  const alpha = event.alpha;
-
-  document.getElementById('example').innerHTML = `<p>x : ${beta}</p><p>y : ${gamma}</p> <p>z : ${alpha}</p> <p>heading: ${getCompassHeading(alpha, beta, gamma)}`;
-    // document.getElementById('example').innerHTML = `event.beta : ${event?.beta}`;
+const radian = angle => angle * Math.PI / 180;
+function handleOrientation(e) {
+  const angle = getCompassHeading(e.alpha, e.beta, e.gamma);
+  const SIZE_RADIUS = 150;
+  const BASE_X = window.innerWidth / 2;
+  const BASE_Y = window.innerHeight / 2;
+  const pos = {
+    x: Math.cos(radian(angle)) * SIZE_RADIUS,
+    y : Math.sin(radian(angle)) * SIZE_RADIUS
+  }
 };
 
 /** Safari가 13+ 버전 이상인지 체크 **/
