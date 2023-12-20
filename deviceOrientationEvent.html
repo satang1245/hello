@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>gyro.js - easy access to your web browsers built in accelerometer's and gyroscope's</title>
 <style>
-    .bull { position: fixed; top:50%; left: 50%; width: 50px; height: 50px; border-radius: 50%; background-color: pink; transform: translate(-50%, -50%); }
+    .bull { position: fixed; top:50%; left: 50%; width: 50px; height: 50px; border-radius: 50%; background-color: pink; transform: translate(-50%, -50%); transition: transform .15s;}
 </style>
 </head>
 <body>
@@ -55,8 +55,8 @@ const $bull = document.querySelector('.bull');
 function handleOrientation(e) {
   const angle = getCompassHeading(e.alpha, e.beta, e.gamma);
   const SIZE_RADIUS = 150;
-  const BASE_X = window.innerWidth / 2;
-  const BASE_Y = window.innerHeight / 2;
+  const BASE_X = window.innerWidth / 4;
+  const BASE_Y = window.innerHeight / 4;
   const pos = {
     x: Math.cos(radian(angle)) * SIZE_RADIUS,
     y : Math.sin(radian(angle)) * SIZE_RADIUS
