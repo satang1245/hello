@@ -50,6 +50,8 @@ function getCompassHeading(alpha, beta, gamma) {
 
 // // 자이로 센서 값 변화
 const radian = angle => angle * Math.PI / 180;
+const $text = document.getElementById('example');
+const $bull = document.querySelector('.bull');
 function handleOrientation(e) {
   const angle = getCompassHeading(e.alpha, e.beta, e.gamma);
   const SIZE_RADIUS = 150;
@@ -59,6 +61,8 @@ function handleOrientation(e) {
     x: Math.cos(radian(angle)) * SIZE_RADIUS,
     y : Math.sin(radian(angle)) * SIZE_RADIUS
   }
+  $text.innerHTML = `X : ${pos.x}, Y: ${pos.y}`;
+  $bull.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
 };
 
 /** Safari가 13+ 버전 이상인지 체크 **/
