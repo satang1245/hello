@@ -58,11 +58,14 @@ function handleOrientation(e) {
   const BASE_X = window.innerWidth / 4;
   const BASE_Y = window.innerHeight / 4;
   const pos = {
-    x: Math.cos(radian(angle)) * SIZE_RADIUS,
+    x : Math.cos(radian(angle)) * SIZE_RADIUS,
     y : Math.sin(radian(angle)) * SIZE_RADIUS
   }
-  $text.innerHTML = `X : ${pos.x}, Y: ${pos.y}`;
-  $bull.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+  $text.innerHTML = `X : ${e.beta}, Y: ${e.gamma}`;
+
+  const x = (e.gamma + 90) * ((window.innerWidth-$bull.clientWidth) / 180);
+  const y = (e.beta + 90) * ((window.innerHeight-$bull.clientHeight) / 180);
+  $bull.style.transform = `translate(${x}px, ${y}px)`;
 };
 
 /** Safari가 13+ 버전 이상인지 체크 **/
