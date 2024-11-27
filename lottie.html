@@ -7,11 +7,13 @@
 <style>
 html, body { margin:0; height: 100%; min-height: 100vh; }
 #wrap {height: 400vh;}
+#lottieArea {position: fixed; top:50%; left:50%; margin:-100px 0 0 -100px; width: 200px; height: 100px;}
 </style>
 </head>
 <body>
 <div id="wrap"></div>
-<div id="lottieArea" style="position: fixed; top:50%; left:50%; margin:-100px 0 0 -100px; width: 200px; height: 100px;"></div>
+<div id="lottieArea"></div>
+<div id="firstLottie"></div>
 <script src="https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js"></script>
 <script>
 const $element = document.getElementById('lottieArea');
@@ -25,21 +27,21 @@ const obj = lottie.loadAnimation({
 
 // obj.goToAndStop(50, true);
 
-// let player = document.getElementById("firstLottie");
+let player = document.getElementById("firstLottie");
 
-// player.addEventListener("ready", () => {
-//   LottieInteractivity.create({
-//         mode:"scroll",
-//         player: "#firstLottie",
-//         actions: [
-//         {
-//             visibility:[0, 1.0],
-//             type: "seek",
-//             frames: [0, 300],
-//         },
-//         ]
-//       });
-// });
+player.addEventListener("ready", () => {
+  LottieInteractivity.create({
+        mode:"scroll",
+        player: "#firstLottie",
+        actions: [
+            {
+                visibility:[0, 1.0],
+                type: "seek",
+                frames: [0, 300],
+            },
+        ]
+    });
+});
 
 </script>
 </body>

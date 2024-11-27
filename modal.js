@@ -1,1 +1,1 @@
-document.q
+document.querySelector()
